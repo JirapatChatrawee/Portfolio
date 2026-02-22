@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jirapat Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section class="hero">
+        <h1>Portfolio</h1>
+        <p>Web Developer | IT Project Manager</p>
+    </section>
+
+    <!-- Divider Line -->
+    <div class="divider"></div>
+
+    <section class="projects">
+        <h2>Project</h2>
+
+        <div class="card">
+            <h3>Barter</h3>
+            <p>Barter is a website for exchanging items that allows people to use the website to exchange items with each other. Users can post any items they want to exchange with others, or if they have items that they no longer use but do not want to throw away, 
+                they can pass them on to those who need them. The main features of the website include uploading, setting up profiles, editing and deleting items, sending requests for offers and chat history. 
+                The development of the Barter project focuses on creating an efficient system and seeing the benefits of reusing items without having to throw them away.</p>
+            <div class="img_projects">
+                <img src="img/Picture1.png" alt="login">
+                <img src="img/Picture2.png" alt="home">
+                <img src="img/Picture4.png" alt="products">
+                <img src="img/Picture3.png" alt="notification">
+            </div>
+            <a href="https://github.com/64160102/ProjectBarter1.git">View Project on Github</a>
+            <a href="report/64160083_จิรภัทร ฉัตรรวี.pdf" download class="download-btn">
+                Download Report
+            </a>
+        </div>
+    </section>
+
+    <section class="video">
+        <h2>Video</h2>
+        <div class="video-center">
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/3LmUd_BUZvw"
+                    title="YouTube video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- ปุ่ม Playlist -->
+            <a href="https://youtube.com/playlist?list=PL2qGDCZ943hQxQijDGeSozvxPXNsj47Nx&si=JI9sXty7tq2sEare" target="_blank" class="playlist-btn">
+                Other Video
+            </a>
+        </div>
+    </section>
+
+    <section class="contact">
+        <h2>Contact</h2>
+        <p>Email: jirapatchatrawee@gmail.com</p>
+        <p>Number: 094-693-9462</p>
+        <p>Line ID : get08300</p>
+    </section>
+
+    <!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+    const images = document.querySelectorAll(".img_projects img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close");
+
+    let scale = 1;
+    let posX = 0;
+    let posY = 0;
+    let isDragging = false;
+    let startX, startY;
+
+    function updateTransform() {
+        lightboxImg.style.transform =
+            `translate(${posX}px, ${posY}px) scale(${scale})`;
+    }
+
+    function resetImage() {
+        scale = 1;
+        posX = 0;
+        posY = 0;
+        updateTransform();
+    }
+
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.classList.add("active");
+            lightboxImg.src = img.src;
+            resetImage();
+        });
+    });
+
+    // Scroll Zoom
+    lightboxImg.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const zoomSpeed = 0.1;
+        scale += e.deltaY * -zoomSpeed * 0.01;
+        scale = Math.min(Math.max(1, scale), 5);
+        updateTransform();
+    });
+
+
+
+    // Double click reset
+    lightboxImg.addEventListener("dblclick", resetImage);
+
+    // Close when click background
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove("active");
+            resetImage();
+        }
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.classList.remove("active");
+        resetImage();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            lightbox.classList.remove("active");
+            resetImage();
+        }
+    });
+</script>
+
+</body>
+</html>
